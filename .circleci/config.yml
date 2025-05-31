@@ -16,6 +16,7 @@ jobs:
       - run:
           name: Run tests
           command: pipenv run pytest --junitxml=junit.xml || ((($? == 5)) && echo 'Did not find any tests to run.')
+          echo: "Tests completed, added this to check echo in circleci"
       - store_test_results:
           path: junit.xml
   deploy:
