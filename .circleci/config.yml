@@ -16,9 +16,15 @@ jobs:
       - run:
           name: Run tests
           command: pipenv run pytest --junitxml=junit.xml || ((($? == 5)) && echo 'Did not find any tests to run.')
-          echo: "Tests completed, added this to check echo in circleci"
       - store_test_results:
           path: junit.xml
+  print-hello:
+    docker:
+      - image: cimg/python:3.12-node
+    steps:
+      -run:
+          name: print hello
+          command: echo "Hello, World!"
   deploy:
     # This is an example deploy job, not actually used by the workflow
     docker:
@@ -32,6 +38,7 @@ workflows:
   build-and-test:
     jobs:
       - test-python
+      - print-hello
     # - deploy:
     #     requires:
     #       - test-python
